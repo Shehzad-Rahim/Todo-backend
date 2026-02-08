@@ -3,6 +3,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.v1 import tasks
@@ -25,10 +26,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+@app.middleware("http")
+async def allow_options_without_auth(request: Request, call_next):
+    if request.method == "OPTIONS":
+        return await call_next(request)
+    return await call_next(request)
+
 # CORS configuration for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],
+    allow_origins=["https://todo-hive-pearl.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
