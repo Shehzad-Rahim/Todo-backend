@@ -26,7 +26,7 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-@app.middleware("http")
+@app.middleware("http" , "https")
 async def allow_options_without_auth(request: Request, call_next):
     if request.method == "OPTIONS":
         return await call_next(request)
