@@ -35,7 +35,7 @@ async def allow_options_without_auth(request: Request, call_next):
 # CORS configuration for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://todo-hive-pearl.vercel.app"],
+    allow_origins=["https://todo-hive-pearl.vercel.app", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
