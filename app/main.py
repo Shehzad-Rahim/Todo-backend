@@ -41,6 +41,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/api/v1/tasks")
+async def get_tasks():
+    return {"tasks": []}
+
 # Register API routers
 # Tasks API - user identity comes from JWT token, not URL
 app.include_router(tasks.router, prefix="/api/v1")
