@@ -28,20 +28,10 @@ app = FastAPI(
 # CORS configuration for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://todo-hive-pearl.vercel.app", "http://localhost:3000"],
-    allow_credentials=True,
-    allow_methods=[
-        "GET",
-        "POST",
-        "PUT",
-        "PATCH",
-        "DELETE",
-        "OPTIONS",
-    ],
-    allow_headers=[
-        "Authorization",
-        "Content-Type",
-    ],
+    allow_origins=["*"],  # ✅ allowed because credentials are OFF
+    allow_credentials=False,  # 🚨 MUST be False
+    allow_methods=["*"],
+    allow_headers=["Authorization", "Content-Type"],
 )
 
 # Register API routers
