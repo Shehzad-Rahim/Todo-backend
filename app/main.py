@@ -1,7 +1,6 @@
 """FastAPI application entry point."""
 
 from contextlib import asynccontextmanager
-
 from fastapi import FastAPI
 from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
@@ -25,12 +24,6 @@ app = FastAPI(
     version="1.0.0",
     lifespan=lifespan,
 )
-
-@app.middleware("https")
-async def allow_options_without_auth(request: Request, call_next):
-    if request.method == "OPTIONS":
-        return await call_next(request)
-    return await call_next(request)
 
 # CORS configuration for frontend
 app.add_middleware(
