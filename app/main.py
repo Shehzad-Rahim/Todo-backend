@@ -28,16 +28,20 @@ app = FastAPI(
 # CORS configuration for frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ✅ allowed because credentials are OFF
-    allow_credentials=False,  # 🚨 MUST be False
-    allow_methods=["*"],
+    allow_origins=["https://todo-hive-pearl.vercel.app", "http://localhost:3000", "https://todo-hive-pearl.vercel.app/tasks", "todo-hive-pearl.vercel.app"],
+    allow_credentials=False,
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
 )
+
 
 # Register API routers
 # Tasks API - user identity comes from JWT token, not URL
 app.include_router(tasks.router, prefix="/api/v1")
 
+@app.get("/")
+async def root():
+    return {"status": "ok"}
 
 @app.get("/health")
 async def health_check():
